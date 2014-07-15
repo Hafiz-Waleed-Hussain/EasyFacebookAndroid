@@ -12,13 +12,16 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
+import com.easyfacebook.EasyFacebook;
 import com.easyfacebook.algos.UserInfoAlgo;
 import com.easyfacebook.algos.UserInfoAlgo.callback;
 import com.easyfacebook.util.DialogBuilder;
@@ -96,6 +99,10 @@ public class EasyWebView extends WebView{
 		public void onReceivedError(WebView view, int errorCode,
 				String description, String failingUrl) {
 			super.onReceivedError(view, errorCode, description, failingUrl);
+			Intent errorData = new Intent();
+			errorData.putExtra(EasyFacebook.ERROR_CODE, errorCode);
+			mActivityReference.setResult(Activity.RESULT_CANCELED,errorData);
+			mActivityReference.finish();
 		}
 
 
@@ -129,6 +136,7 @@ public class EasyWebView extends WebView{
 			} catch (IOException e) {
 				e.printStackTrace();
 				hideDialog();
+				mActivityReference.setResult(Activity.RESULT_CANCELED);
 				mActivityReference.finish();
 			}
 		}
@@ -140,6 +148,7 @@ public class EasyWebView extends WebView{
 			@Override public void complete(JSONObject userData) {
 				FacebookPreferenceUtil.setUserInfo(userData.toString());
 				hideDialog();
+				mActivityReference.setResult(Activity.RESULT_OK);
 				mActivityReference.finish();						
 				
 			}

@@ -5,12 +5,14 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 import com.easyfacebook.activities.EasyOauthActivity;
 import com.easyfacebook.algos.GetUserImageAlgo;
 import com.easyfacebook.algos.PostAlgo;
 import com.easyfacebook.models.CredentialModel;
 import com.easyfacebook.util.FacebookPreferenceUtil;
+import com.easyfacebook.util.Logger;
 
 public class EasyFacebook{
 
@@ -40,12 +42,17 @@ public class EasyFacebook{
 	public static String TypeSmall = "small";
 	public static String TypeNormal = "normal";
 	public static String TypeLarge = "large";
+	public static final int REQUEST_CODE = 10000;
+
+	public static final String ERROR_CODE = "error_code";
 
 
 
 	/**
-	 * This method is used to Authorize user from Facebook after successfull Authorization this method automatically 
-	 * call and save the user's info.
+	 * This method is used to Authorize user from Facebook.After successfull Authorization this method automatically 
+	 * call and save the user's info. And it send back result in onActivityResult() method. Here use requestCode == EasyFacebook.REQUEST_CODE
+	 * if RESULT_OK its mean successfully authorize and if RESULT_CANCELED than you have error code in intent so get that value
+	 * using key data.getInt(EasyFacebook.ERROR_CODE). These error codes are present in WebViewClient. http://developer.android.com/reference/android/webkit/WebViewClient.html
 	 * @param activityReference
 	 * This method require the activity reference
 	 */
@@ -54,8 +61,10 @@ public class EasyFacebook{
 		intent.putExtra("url", mLoginUrl);
 		intent.putExtra("callbackurl", mCredentialModel.getmCallbackURL());		
 		intent.putExtra("access_token_url", mAccessTokenUrl);
-		activityReference.startActivity(intent);
+		activityReference.startActivityForResult(intent, REQUEST_CODE);
 	}
+	
+
 
 	/**
 	 * This method return you the JSONObject of user.
