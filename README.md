@@ -37,6 +37,8 @@ Now getinstance of EasyFacebook class.<br/>
 		else if( resultCode == Activity.RESULT_CANCELED && requestCode == EasyFacebook.REQUEST_CODE){
 			Logger.showLog("Not Authorize");
 			Toast.makeText(this, data.getIntExtra(EasyFacebook.ERROR_CODE, 0)+"", Toast.LENGTH_LONG).show();
+			//These error codes are present in WebViewClient. 	     
+   			//http://developer.android.com/reference/android/webkit/WebViewClient.html
 		}
 	}
 </b></pre>
