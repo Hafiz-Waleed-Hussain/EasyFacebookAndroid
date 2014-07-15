@@ -27,6 +27,20 @@ Now getinstance of EasyFacebook class.<br/>
   Now time for magic.<br/>
   1. Auth or SignIn<br/>
      <b>mEasyFacebook.authorize(this) // Here  'this' is an Activity reference <br/></b>
+	<b> Result of the Auth is get in onActivityResult method.<br/></b>
+	<pre><b>@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if( resultCode == Activity.RESULT_OK && requestCode == EasyFacebook.REQUEST_CODE){
+			Logger.showLog("Successfully Authorize");
+		}
+		else if( resultCode == Activity.RESULT_CANCELED && requestCode == EasyFacebook.REQUEST_CODE){
+			Logger.showLog("Not Authorize");
+			Toast.makeText(this, data.getIntExtra(EasyFacebook.ERROR_CODE, 0)+"", Toast.LENGTH_LONG).show();
+		}
+	}
+</b></pre>
+
   2. Get UserInfo<br/>
      <b>mEasyFacebook.getUser() // At this time you get JSON object. I will change into UserModel in future release<br/></b>
   3. Post a message<br/>
