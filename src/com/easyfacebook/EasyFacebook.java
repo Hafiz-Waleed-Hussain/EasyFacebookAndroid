@@ -5,14 +5,12 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.easyfacebook.activities.EasyOauthActivity;
 import com.easyfacebook.algos.GetUserImageAlgo;
 import com.easyfacebook.algos.PostAlgo;
 import com.easyfacebook.models.CredentialModel;
 import com.easyfacebook.util.FacebookPreferenceUtil;
-import com.easyfacebook.util.Logger;
 
 public class EasyFacebook{
 
@@ -109,7 +107,7 @@ public class EasyFacebook{
 
 	private void setLoginUrl() {
 		String loginUrl = "https://www.facebook.com/dialog/oauth?";
-		mLoginUrl = String.format(loginUrl+"client_id=%s&redirect_uri=%s&scope",mCredentialModel.getmAppID(),mCredentialModel.getmCallbackURL(),mCredentialModel.getPermissionAsString());
+		mLoginUrl = String.format(loginUrl+"client_id=%s&redirect_uri=%s&scope=%s",mCredentialModel.getmAppID(),mCredentialModel.getmCallbackURL(),mCredentialModel.getPermissionAsString());
 	}
 
 	private void setAccessTokenUrl() {

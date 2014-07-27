@@ -19,7 +19,6 @@ import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.Toast;
 
 import com.easyfacebook.EasyFacebook;
 import com.easyfacebook.algos.UserInfoAlgo;
